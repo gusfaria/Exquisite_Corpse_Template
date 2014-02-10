@@ -8,7 +8,7 @@ String desc   = "Some stuff";
 Spacebrew sb;
 
 // Jennifer variables
-
+JenniferParticle jenniferCircle;
 
 // App Size: you should decide on a width and height
 // for your group
@@ -30,6 +30,9 @@ void setup(){
   // add any of your own subscribers here!
   
   sb.connect( server, name, desc );
+  
+  jenniferCircle = new JenniferParticle();
+  jenniferCircle.reset();
 }
 
 void draw(){
@@ -58,11 +61,20 @@ void draw(){
     
   // ---- start person 3 ---- //
   } else if ( millis() - corpseStarted < 30000 ){
+    println("r: " + jenniferCircle.r + " and diameter: " + jenniferCircle.diameter);
+    println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
     noFill();
     stroke(255);
     rect(width * 2.0/ 3.0,0, width / 3.0, height );
     
+    jenniferCircle.update();
+    jenniferCircle.display();
+
     fill(255);
+    ellipse(jenniferCircle.xPos, jenniferCircle.yPos,  100, 100);  
+  
+    ellipse(20, 20, 100, 100);
+    ellipse(882, 959);
   
   // ---- we're done! ---- //
   } else {
@@ -74,6 +86,11 @@ void draw(){
 void mousePressed(){
   // for debugging, comment this out!
   sb.send( "doneExquisite", true );
+}
+
+void keyPressed() {
+  jenniferCircle.reset();
+  println("keypressed!");
 }
 
 void onBooleanMessage( String name, boolean value ){
