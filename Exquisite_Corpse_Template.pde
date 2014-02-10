@@ -2,10 +2,13 @@ import spacebrew.*;
 
 // Spacebrew stuff
 String server = "sandbox.spacebrew.cc";
-String name   = "ExquisiteCorpse_YOUR_NAME_HERE!";
+String name   = "ExquisiteCorpse_Jennifer!";
 String desc   = "Some stuff";
 
 Spacebrew sb;
+
+// Jennifer variables
+
 
 // App Size: you should decide on a width and height
 // for your group
@@ -58,6 +61,7 @@ void draw(){
     noFill();
     stroke(255);
     rect(width * 2.0/ 3.0,0, width / 3.0, height );
+    
     fill(255);
   
   // ---- we're done! ---- //
