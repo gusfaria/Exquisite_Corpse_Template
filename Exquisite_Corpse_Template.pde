@@ -5,7 +5,8 @@ String server = "sandbox.spacebrew.cc";
 String name   = "ExquisiteCorpse_GUS!";
 String desc   = "Some stuff";
 
-int gusA, gusB, gusC, gusD;
+//gus
+int gusA, gusB, gusC, gusD, gusRange;
 color gusColor;
 
 Spacebrew sb;
@@ -28,9 +29,8 @@ void setup(){
   sb.addSubscribe("startExquisite", "boolean");
   
   //gus
-    sb.addSubscribe( "remote_slider", "range" );
-
-  
+  sb.addSubscribe( "gus_slider", "range" );
+    
   // add any of your own subscribers here!
   
   sb.connect( server, name, desc );
@@ -58,7 +58,14 @@ void draw(){
     stroke(255);
     rect(0,0, width / 3.0, height );
     fill(255);
-    
+  
+  // ---- start person 2 ---- //
+  } else if ( millis() - corpseStarted < 20000 ){
+    noFill();
+    stroke(255);
+    rect(width / 3.0,0, width / 3.0, height );
+    fill(255);
+  
     gusA += 10;
     gusB -= 10;
     gusC += 6;
@@ -92,15 +99,6 @@ void draw(){
       noStroke();
       ellipse(width/2,height/2,gusC,gusC);
     popMatrix();
-  
-  // ---- start person 2 ---- //
-  } else if ( millis() - corpseStarted < 20000 ){
-    noFill();
-    stroke(255);
-    rect(width / 3.0,0, width / 3.0, height );
-    fill(255);
-  
-
     
     
   // ---- start person 3 ---- //
@@ -132,6 +130,11 @@ void onBooleanMessage( String name, boolean value ){
 }
 
 void onRangeMessage( String name, int value ){
+    if(name == "gus_slider"){
+      println("got range message " + name + " : " + value);
+      gusRange = value;
+    }
+    
 }
 
 void onStringMessage( String name, String value ){
