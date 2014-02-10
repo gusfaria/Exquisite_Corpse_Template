@@ -2,8 +2,11 @@ import spacebrew.*;
 
 // Spacebrew stuff
 String server = "sandbox.spacebrew.cc";
-String name   = "ExquisiteCorpse_YOUR_NAME_HERE!";
+String name   = "ExquisiteCorpse_GUS!";
 String desc   = "Some stuff";
+
+int gusA, gusB, gusC, gusD;
+color gusColor;
 
 Spacebrew sb;
 
@@ -24,9 +27,19 @@ void setup(){
   sb.addPublish("doneExquisite", "boolean", false);
   sb.addSubscribe("startExquisite", "boolean");
   
+  //gus
+    sb.addSubscribe( "remote_slider", "range" );
+
+  
   // add any of your own subscribers here!
   
   sb.connect( server, name, desc );
+  
+  //gus 
+  gusA = 0;
+  gusB = 100;
+  gusC = 0;
+  gusD = 100;
 }
 
 void draw(){
@@ -45,6 +58,40 @@ void draw(){
     stroke(255);
     rect(0,0, width / 3.0, height );
     fill(255);
+    
+    gusA += 10;
+    gusB -= 10;
+    gusC += 6;
+    
+      if (gusA>100){
+        gusA=0;
+      }
+         
+      if (gusB<0){
+        gusB=0;
+      }
+      
+      if (gusC>2000){           
+        pushMatrix();
+          translate(width/2,height/2);
+          rectMode(CENTER);
+           noFill();
+           strokeWeight(1);
+           stroke(255);
+           rect(0,0,gusD,gusD);
+           gusD += 20;
+        popMatrix();
+        rectMode(CORNER);
+      }
+  
+    pushMatrix();
+      translate(width/2,height/2);
+      rotate(gusA);
+      ellipseMode(CENTER);
+      fill(random(255),gusA,random(255),10);
+      noStroke();
+      ellipse(width/2,height/2,gusC,gusC);
+    popMatrix();
   
   // ---- start person 2 ---- //
   } else if ( millis() - corpseStarted < 20000 ){
@@ -52,6 +99,9 @@ void draw(){
     stroke(255);
     rect(width / 3.0,0, width / 3.0, height );
     fill(255);
+  
+
+    
     
   // ---- start person 3 ---- //
   } else if ( millis() - corpseStarted < 30000 ){
