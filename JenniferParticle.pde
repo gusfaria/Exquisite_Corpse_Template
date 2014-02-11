@@ -5,7 +5,7 @@ class JenniferParticle {
 
   JenniferParticle() {
     diameter = 0;
-    minDiameter = 10;
+    minDiameter = 30;
     maxDiameter = 400;
     xPos = random(width/3.0 * 2.0, width);
     yPos = random(0, height);
