@@ -131,7 +131,7 @@ void onBooleanMessage( String name, boolean value ){
 }
 
 void onRangeMessage( String name, int value ){
-    if(name == "gus_slider"){
+    if(name.equals("gus_slider")){
       println("got range message " + name + " : " + value);
       gusRange = value;
     }
