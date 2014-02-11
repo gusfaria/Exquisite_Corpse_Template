@@ -41,6 +41,7 @@ class JenniferParticle {
       }
     } else if (diameter >= maxDiameter) {
       isVisible = false;
+      reset();
     }
   }
 

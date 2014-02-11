@@ -9,6 +9,8 @@ Spacebrew sb;
 
 // Jennifer variables
 JenniferParticle jenniferCircle;
+float jenniferRedValue;
+float jenniferDiameterValue;
 
 // App Size: you should decide on a width and height
 // for your group
@@ -28,6 +30,7 @@ void setup(){
   sb.addSubscribe("startExquisite", "boolean");
   
   // add any of your own subscribers here!
+  sb.addSubscribe("jenniferRange", "range");
   
   sb.connect( server, name, desc );
   
@@ -63,18 +66,13 @@ void draw(){
   } else if ( millis() - corpseStarted < 30000 ){
     println("r: " + jenniferCircle.r + " and diameter: " + jenniferCircle.diameter);
     println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
-    noFill();
+    fill(0);
     stroke(255);
     rect(width * 2.0/ 3.0,0, width / 3.0, height );
     
+    
     jenniferCircle.update();
     jenniferCircle.display();
-
-    fill(255);
-    ellipse(jenniferCircle.xPos, jenniferCircle.yPos,  100, 100);  
-  
-    ellipse(20, 20, 100, 100);
-    ellipse(882, 959);
   
   // ---- we're done! ---- //
   } else {
@@ -100,9 +98,17 @@ void onBooleanMessage( String name, boolean value ){
     corpseStarted = millis();
     bNeedToClear = true;
   }
+  
 }
 
 void onRangeMessage( String name, int value ){
+  if (name.equals("jenniferRange") ) {
+    jenniferRedValue = map(value, 0, 1024, 0, 255); // redness of circle
+    jenniferDiameterValue = map(value, 0, 1024, 0, 400); // diameter of circle
+    println("incoming value: " + value);
+    println("jenniferRedValue: " + jenniferRedValue);
+    println("jenniferDiameterValue: " + jenniferDiameterValue);
+  }
 }
 
 void onStringMessage( String name, String value ){
