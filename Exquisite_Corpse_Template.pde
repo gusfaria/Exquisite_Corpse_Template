@@ -146,7 +146,7 @@ void draw() {
            gusD += 20;
         popMatrix();
         rectMode(CORNER);
-          if(gusD == 1000){
+          if(gusD == 1500){
             gusA = 0;
             gusB = 100;
             gusC = 0;
