@@ -66,6 +66,7 @@ void draw(){
     rect(width / 3.0,0, width / 3.0, height );
     fill(255);
   
+    float gusRangeMapped = map(float(gusRange), 0,1023,0,255);
     gusA += 10;
     gusB -= 10;
     gusC += 6;
@@ -95,7 +96,7 @@ void draw(){
       translate(width/2,height/2);
       rotate(gusA);
       ellipseMode(CENTER);
-      fill(random(255),gusA,random(255),10);
+      fill(random(255),gusA,gusRangeMapped,10);
       noStroke();
       ellipse(width/2,height/2,gusC,gusC);
     popMatrix();
