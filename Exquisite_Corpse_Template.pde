@@ -109,8 +109,8 @@ void draw() {
     image(bird, alexDraw*2, 300, 50, 50);
     fill(0);
 
-    rect(width / 3.0, 0, width / 3.0, height );
-    rect(width * 2.0/ 3.0, 0, width / 3.0, height );
+//    rect(width / 3.0, 0, width / 3.0, height );
+//    rect(width * 2.0/ 3.0, 0, width / 3.0, height );
 
     // ---- start person 2 ---- //
   } 
@@ -162,9 +162,9 @@ void draw() {
   else if ( millis() - corpseStarted < 30000 ) {
     colorMode(RGB);
     println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
-    fill(0);
-    stroke(255);
-    rect(width * 2.0/ 3.0, 0, width / 3.0, height );
+//    fill(0);
+//    stroke(255);
+//    rect(width * 2.0/ 3.0, 0, width / 3.0, height );
 
     jenniferCircle.update();
     jenniferCircle.display();
