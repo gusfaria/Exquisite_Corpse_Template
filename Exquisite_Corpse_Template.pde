@@ -134,10 +134,11 @@ void draw() {
         gusB=0;
       }
       
-      if (gusC>2000){           
+      if (gusC>1000){           
         pushMatrix();
           translate(width/2,height/2);
           rectMode(CENTER);
+           rotate(jenniferDiameterValue);
            noFill();
            strokeWeight(1);
            stroke(255);
@@ -145,6 +146,12 @@ void draw() {
            gusD += 20;
         popMatrix();
         rectMode(CORNER);
+          if(gusD == 1000){
+            gusA = 0;
+            gusB = 100;
+            gusC = 0;
+            gusD = 100;
+          }
       }
   
     pushMatrix();
@@ -152,7 +159,7 @@ void draw() {
       rotate(gusA);
       ellipseMode(CENTER);
       colorMode(HSB);
-      fill(random(255),gusA,gusRangeMapped,10);
+      fill(gusRangeMapped,gusA,random(255),10);
       noStroke();
       ellipse(width/2,height/2,gusC,gusC);
     popMatrix();
