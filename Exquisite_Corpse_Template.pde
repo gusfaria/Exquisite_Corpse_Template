@@ -19,10 +19,19 @@ float b;
 
 // Spacebrew stuff
 String server = "sandbox.spacebrew.cc";
+<<<<<<< HEAD
 String name   = "Chalupa Batman";
+=======
+String name   = "ExquisiteCorpse_Jennifer!";
+>>>>>>> animation3
 String desc   = "Some stuff";
 
 Spacebrew sb;
+
+// Jennifer variables
+JenniferParticle jenniferCircle;
+float jenniferRedValue;
+float jenniferDiameterValue;
 
 // App Size: you should decide on a width and height
 // for your group
@@ -53,8 +62,10 @@ void setup(){
   sb.addSubscribe("alexInput", "boolean");
   
   // add any of your own subscribers here!
+  sb.addSubscribe("jenniferRange", "range");
   
   sb.connect( server, name, desc );
+<<<<<<< HEAD
   //alex
   alexDraw = 0;
 
@@ -62,6 +73,10 @@ b = .2;
 Minim minim;
 AudioPlayer turret;
 //
+=======
+  
+  jenniferCircle = new JenniferParticle();
+>>>>>>> animation3
 }
 
 void draw(){
@@ -119,10 +134,16 @@ void draw(){
     
   // ---- start person 3 ---- //
   } else if ( millis() - corpseStarted < 30000 ){
-    noFill();
+    println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
+    fill(0);
     stroke(255);
     rect(width * 2.0/ 3.0,0, width / 3.0, height );
-    fill(255);
+
+    jenniferCircle.update();
+    jenniferCircle.display();
+    println("diameter: " + jenniferCircle.diameter);
+    println("xPos: " + jenniferCircle.xPos);
+    println("yPos: " + jenniferCircle.yPos);
   
   // ---- we're done! ---- //
   } else {
@@ -136,12 +157,19 @@ void mousePressed(){
   sb.send( "doneExquisite", true );
 }
 
+void keyPressed() {
+  // for debugging purposes only
+  jenniferCircle.resetPosition();
+  println("keypressed!");
+}
+
 void onBooleanMessage( String name, boolean value ){
   if ( name.equals("startExquisite") ){
     // start the exquisite corpse process!
     bDrawing = true;
     corpseStarted = millis();
     bNeedToClear = true;
+<<<<<<< HEAD
   } 
   //Alex
    if(name.equals("alexInput")){
@@ -149,10 +177,20 @@ void onBooleanMessage( String name, boolean value ){
      turret.play();
     }
    //
+=======
+  }
+>>>>>>> animation3
   
 }
 
 void onRangeMessage( String name, int value ){
+  if (name.equals("jenniferRange") ) {
+    jenniferRedValue = map(float(value), 0, 1024, 0, 255); // redness of circle
+    jenniferDiameterValue = map(float(value), 0, 1024, 0, jenniferCircle.maxDiameter); // diameter of circle
+    println("incoming value: " + value);
+    println("jenniferRedValue: " + jenniferRedValue);
+    println("jenniferDiameterValue: " + jenniferDiameterValue);
+  }
 }
 
 void onStringMessage( String name, String value ){
