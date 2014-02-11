@@ -35,7 +35,6 @@ void setup(){
   sb.connect( server, name, desc );
   
   jenniferCircle = new JenniferParticle();
-  jenniferCircle.reset();
 }
 
 void draw(){
@@ -64,15 +63,16 @@ void draw(){
     
   // ---- start person 3 ---- //
   } else if ( millis() - corpseStarted < 30000 ){
-    println("r: " + jenniferCircle.r + " and diameter: " + jenniferCircle.diameter);
     println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
     fill(0);
     stroke(255);
     rect(width * 2.0/ 3.0,0, width / 3.0, height );
-    
-    
+
     jenniferCircle.update();
     jenniferCircle.display();
+    println("diameter: " + jenniferCircle.diameter);
+    println("xPos: " + jenniferCircle.xPos);
+    println("yPos: " + jenniferCircle.yPos);
   
   // ---- we're done! ---- //
   } else {
@@ -87,7 +87,8 @@ void mousePressed(){
 }
 
 void keyPressed() {
-  jenniferCircle.reset();
+  // for debugging purposes only
+  jenniferCircle.resetPosition();
   println("keypressed!");
 }
 
@@ -103,8 +104,8 @@ void onBooleanMessage( String name, boolean value ){
 
 void onRangeMessage( String name, int value ){
   if (name.equals("jenniferRange") ) {
-    jenniferRedValue = map(value, 0, 1024, 0, 255); // redness of circle
-    jenniferDiameterValue = map(value, 0, 1024, 0, 400); // diameter of circle
+    jenniferRedValue = map(float(value), 0, 1024, 0, 255); // redness of circle
+    jenniferDiameterValue = map(float(value), 0, 1024, 0, jenniferCircle.maxDiameter); // diameter of circle
     println("incoming value: " + value);
     println("jenniferRedValue: " + jenniferRedValue);
     println("jenniferDiameterValue: " + jenniferDiameterValue);

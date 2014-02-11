@@ -1,53 +1,35 @@
 class JenniferParticle {
-  float xPos;
-  float yPos;
+  float xPos, yPos;
   float diameter;
-
-  float alpha;
-  float maxDiameter;
-
-  float r, g, b;
-
-  boolean isVisible;
+  float minDiameter, maxDiameter;
 
   JenniferParticle() {
     diameter = 0;
-    maxDiameter = 300;
-    r = 0;
-    g = 0;
-    b = 0;
-    isVisible = false;
-    alpha = 255;
-    xPos = 0;
-    yPos = 0;
+    minDiameter = 10;
+    maxDiameter = 400;
+    xPos = random(width/3.0 * 2.0, width);
+    yPos = random(0, height);
   }
-  
-  void reset() {
+
+  void resetPosition() {
     diameter = 0;
-    r = random(255);
-    g = random(255);
-    b = random(255);
-    isVisible = true;
-    alpha = 255;
     xPos = random(width/3.0 * 2.0, width);
     yPos = random(0, height);
   }
 
   void update() {
-    if ( isVisible && diameter < maxDiameter ) {
-      if (diameter < maxDiameter) {
-        diameter += 2;
-//        alpha = map(diameter, 0, maxDiameter, 255, 0);
-      }
-    } else if (diameter >= maxDiameter) {
-      isVisible = false;
-      reset();
-    }
+    diameter = jenniferDiameterValue;
+    if (diameter < minDiameter) {
+      resetPosition();
+    } 
   }
 
   void display() {
-    fill(r, g, b, alpha);
-    ellipse(xPos, yPos, diameter, diameter);
+    if (diameter >= minDiameter) {
+      // circle will get redder the louder the sound is
+      fill(255, 255-jenniferRedValue, 255-jenniferRedValue);
+      ellipse(xPos, yPos, diameter, diameter);
+    }
   }
 }
 
