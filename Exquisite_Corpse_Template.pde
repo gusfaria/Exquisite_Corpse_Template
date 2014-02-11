@@ -160,6 +160,7 @@ void draw() {
     // ---- start person 3 ---- //
   } 
   else if ( millis() - corpseStarted < 30000 ) {
+    colorMode(RGB);
     println("xPos: " + jenniferCircle.xPos + " yPos: " + jenniferCircle.yPos);
     fill(0);
     stroke(255);
