@@ -19,6 +19,11 @@ String server = "sandbox.spacebrew.cc";
 String name   = "Gus_Alex_Jennifer";
 String desc   = "Exquisite Corpse Animation Extravaganza";
 
+
+//gus
+int gusA, gusB, gusC, gusD, gusRange;
+color gusColor;
+
 Spacebrew sb;
 
 // Jennifer variables
@@ -51,7 +56,8 @@ void setup() {
   sb.addSubscribe("startExquisite", "boolean");
   sb.addSubscribe("alexInput", "boolean");
   sb.addSubscribe("jenniferRange", "range");
-
+  //gus
+  sb.addSubscribe( "gus_slider", "range" );
   sb.connect( server, name, desc );
 
   alexDraw = 0;
@@ -61,10 +67,17 @@ void setup() {
   AudioPlayer turret;
 
   jenniferCircle = new JenniferParticle();
+
+  
+  //gus 
+  gusA = 0;
+  gusB = 100;
+  gusC = 0;
+  gusD = 100;
 }
 
 void draw() {
-  background(0);
+
   // this will make it only render to screen when in EC draw mode
   if (!bDrawing) return;
 
@@ -77,6 +90,7 @@ void draw() {
   // ---- start person 1 ---- //
   if ( millis() - corpseStarted < 10000 ) {
     //Alex
+    background(0);
     alexDraw = b++;
     noStroke();
     //image(background, width / 100, 0, width / 3.0, height);
@@ -106,6 +120,41 @@ void draw() {
     stroke(255);
     rect(width / 3.0, 0, width / 3.0, height );
     fill(255);
+    
+    float gusRangeMapped = map(float(gusRange), 0,1023,0,255);
+    gusA += 10;
+    gusB -= 10;
+    gusC += 6;
+    
+      if (gusA>100){
+        gusA=0;
+      }
+         
+      if (gusB<0){
+        gusB=0;
+      }
+      
+      if (gusC>2000){           
+        pushMatrix();
+          translate(width/2,height/2);
+          rectMode(CENTER);
+           noFill();
+           strokeWeight(1);
+           stroke(255);
+           rect(0,0,gusD,gusD);
+           gusD += 20;
+        popMatrix();
+        rectMode(CORNER);
+      }
+  
+    pushMatrix();
+      translate(width/2,height/2);
+      rotate(gusA);
+      ellipseMode(CENTER);
+      fill(random(255),gusA,gusRangeMapped,10);
+      noStroke();
+      ellipse(width/2,height/2,gusC,gusC);
+    popMatrix();
 
     // ---- start person 3 ---- //
   } 
@@ -161,6 +210,10 @@ void onRangeMessage( String name, int value ) {
     println("incoming value: " + value);
     println("jenniferRedValue: " + jenniferRedValue);
     println("jenniferDiameterValue: " + jenniferDiameterValue);
+  } 
+  if(name.equals("gus_slider")){
+      println("got range message " + name + " : " + value);
+      gusRange = value;
   }
 }
 
