@@ -151,6 +151,7 @@ void draw() {
       translate(width/2,height/2);
       rotate(gusA);
       ellipseMode(CENTER);
+      colorMode(HSB);
       fill(random(255),gusA,gusRangeMapped,10);
       noStroke();
       ellipse(width/2,height/2,gusC,gusC);
